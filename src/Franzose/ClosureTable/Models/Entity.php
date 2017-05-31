@@ -336,11 +336,15 @@ class Entity extends Eloquent implements EntityInterface
         switch ($column) {
             case 'ancestor':
                 $query = $this->join($closure, $ancestor, '=', $primary)
+                    ->orderBy('parent_id')
+                    ->orderBy('position')
                     ->where($descendant, '=', $this->getKey());
                 break;
 
             case 'descendant':
                 $query = $this->join($closure, $descendant, '=', $primary)
+                    ->orderBy('parent_id')
+                    ->orderBy('position')
                     ->where($ancestor, '=', $this->getKey());
                 break;
         }
